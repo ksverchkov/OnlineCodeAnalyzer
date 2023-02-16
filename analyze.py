@@ -40,7 +40,7 @@ def calculate_mi(filepath):
     mi = 171 - 5.2 * math.log(volume) - 0.23 * cc - 16.2 * math.log(loc)
     return mi
 
-def calculate_fan_in_out(filepath):
+"""def calculate_fan_in_out(filepath):
     with open(filepath, 'r') as f:
         code = f.read()
     tree = ast.parse(code)
@@ -48,10 +48,13 @@ def calculate_fan_in_out(filepath):
     fan_out = 0
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
-            print(node)
+            print(list_func_calls(node))
+            for property, value in vars(node).items():
+                print(property, ":", value)
             fan_in += len(node.calls)
             fan_out += len([x for x in ast.walk(node) if isinstance(x, ast.Call)])
     return {"fan_in": fan_in, "fan_out": fan_out}
+"""
 
 def calculate_nesting_depth(filepath):
     with open(filepath, 'r') as f:
@@ -121,10 +124,6 @@ def calculate_metric(filename):
     metrics = {
         "Cyclomatic complexity": cc,
         "Maintainability index": mi,
-        "Fan-in and fan-out": {
-            "in" : fan_in,
-            "out" : fan_out
-        },
         "Nesting depth": nd,
         "Number of methods": nom,
         "Lines of code": loc
