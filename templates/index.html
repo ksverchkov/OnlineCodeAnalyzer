@@ -128,7 +128,9 @@
         <button type="button" onclick="analyze()">Analyze</button>
     </form>
  
-    <div id="result"></div>
+    <div id="result">
+        <div class="result_res" id="result_res"></div>
+    </div>
  
     <script>
         
@@ -148,36 +150,40 @@
                     resultDiv.innerHTML = '';
                     for (let r in response){
                         let resp = response[r];
-                        let resultDivChild = document.createElement('div');
-                        resultDivChild.classList.add('result-item');
-                        resultDivChild.innerHTML = '<div class="result-item-name">' + resp.filename + '</div>' +
-                                                   '<div class="result-item-metrics">' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Cyclomatic complexity</div>' +
-                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Cyclomatic complexity"] + '</div>' +
-                                                        '</div>' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Fan-in and fan-out</div>' +
-                                                            '<div class="result-item-metrics-item-value">Fan in: ' + resp.metrics["Fan-in and fan-out"]["in"] + '; Fan out: ' + resp.metrics["Fan-in and fan-out"]["out"] + ';</div>' +
-                                                        '</div>' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Lines of code</div>' +
-                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Lines of code"] + '</div>' +
-                                                        '</div>' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Maintainability index</div>' +
-                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Maintainability index"] + '</div>' +
-                                                        '</div>' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Nesting depth</div>' +
-                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Nesting depth"] + '</div>' +
-                                                        '</div>' +
-                                                        '<div class="result-item-metrics-item">' +
-                                                            '<div class="result-item-metrics-item-name">Number of methods</div>' +
-                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Number of methods"] + '</div>' +
-                                                        '</div>' +
-                                                   '</div>';
-                        resultDiv.append(resultDivChild);
+                        if (resp.error){
+                            console.log('Error');
+                        }else{
+                            let resultDivChild = document.createElement('div');
+                            resultDivChild.classList.add('result-item');
+                            resultDivChild.innerHTML = '<div class="result-item-name">' + resp.filename + '</div>' +
+                                                    '<div class="result-item-metrics">' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Cyclomatic complexity</div>' +
+                                                                '<div class="result-item-metrics-item-value">' + resp.metrics["Cyclomatic complexity"] + '</div>' +
+                                                            '</div>' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Fan-in and fan-out</div>' +
+                                                                '<div class="result-item-metrics-item-value">Fan in: ' + resp.metrics["Fan-in and fan-out"]["in"] + '; Fan out: ' + resp.metrics["Fan-in and fan-out"]["out"] + ';</div>' +
+                                                            '</div>' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Lines of code</div>' +
+                                                                '<div class="result-item-metrics-item-value">' + resp.metrics["Lines of code"] + '</div>' +
+                                                            '</div>' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Maintainability index</div>' +
+                                                                '<div class="result-item-metrics-item-value">' + resp.metrics["Maintainability index"] + '</div>' +
+                                                            '</div>' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Nesting depth</div>' +
+                                                                '<div class="result-item-metrics-item-value">' + resp.metrics["Nesting depth"] + '</div>' +
+                                                            '</div>' +
+                                                            '<div class="result-item-metrics-item">' +
+                                                                '<div class="result-item-metrics-item-name">Number of methods</div>' +
+                                                                '<div class="result-item-metrics-item-value">' + resp.metrics["Number of methods"] + '</div>' +
+                                                            '</div>' +
+                                                    '</div>';
+                            resultDiv.append(resultDivChild);
+                        }
                     }
             } else {
                 alert('An error occurred!');
