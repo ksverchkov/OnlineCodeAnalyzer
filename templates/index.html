@@ -23,7 +23,7 @@
             formData.append('file', file);
  
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:5000/analyze');
+            xhr.open('POST', 'https://onlinecodeanalyzer-production.up.railway.app/analyze');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     let response = JSON.parse(xhr.responseText);
