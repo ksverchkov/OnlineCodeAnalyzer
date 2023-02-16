@@ -3,6 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <title>Code Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        h1 {
+            padding: 10px 20px;
+            border-bottom: none;
+            margin: 0px;
+            margin-bottom: 5px;
+            background: #2a4168;
+            color: #fff;
+            z-index: 1000;
+            position: sticky;
+            top: 0px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0px;
+            background: #000;
+        }
+
+        label {
+            cursor: pointer;
+            border: 2px dashed #dedede;
+            padding: 10px 20px;
+            display: flex;
+            max-width: 500px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 10px 20px;
+            background: #000;
+            color: #fff;
+        }
+
+        #file {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+        }
+
+        label::before {
+            content: "unarchive";
+            font-family: 'Material Icons';
+            font-size: 25px;
+            margin-right: 10px;
+        }
+
+        button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: #5FAAFF;
+            border: none;
+            height: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 22px;
+            padding: 5px 20px;
+            color: #fff;
+            margin-bottom: 0px;
+        }
+
+        div#result_res {
+            padding: 10px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+            grid-gap: 10px;
+        }
+
+        .result-item {
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background: #384150;
+        }
+
+        .result-item-name {
+            padding: 10px 20px;
+            background: #2a4168;
+            color: #fff;
+        }
+
+        .result-item-metrics {
+            padding: 20px 20px;
+            font-size: 17px;
+        }
+
+        .result-item-metrics-item {
+            display: flex;
+        }
+
+        .result-item-metrics-item-name {
+            max-width: 209px;
+            background: #4e5d8b;
+        }
+
+        .result-item-metrics-item-value {background: #626C8A;}
+
+        .result-item-metrics-item > div {
+            border: 1px solid #737fa5;
+            flex-grow: 1;
+            padding: 10px 15px;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <h1>Code Analysis</h1>
@@ -15,6 +131,7 @@
     <div id="result"></div>
  
     <script>
+        
         function analyze() {
             let fileInput = document.getElementById('file');
             let file = fileInput.files[0];
@@ -27,22 +144,48 @@
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     let response = JSON.parse(xhr.responseText);
-                    let resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = '<h2>Code Metrics:</h2>' +
-                                          '<ul>' +
-                                          '<li>Lines of Code: ' + response.loc + '</li>' +
-                                          '<li>Cyclomatic Complexity: ' + response.cc + '</li>' +
-                                          '<li>Fan-in: ' + response.fan_in + '</li>' +
-                                          '<li>Fan-out: ' + response.fan_out + '</li>' +
-                                          '<li>Nesting Depth: ' + response.nesting_depth + '</li>' +
-                                          '<li>Number of Methods: ' + response.num_methods + '</li>' +
-                                          '</ul>';
-                } else {
-                    alert('An error occurred!');
-                }
-            };
-            xhr.send(formData);
-        }
+                    let resultDiv = document.getElementById('result_res');
+                    resultDiv.innerHTML = '';
+                    for (let r in response){
+                        let resp = response[r];
+                        let resultDivChild = document.createElement('div');
+                        resultDivChild.classList.add('result-item');
+                        resultDivChild.innerHTML = '<div class="result-item-name">' + resp.filename + '</div>' +
+                                                   '<div class="result-item-metrics">' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Cyclomatic complexity</div>' +
+                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Cyclomatic complexity"] + '</div>' +
+                                                        '</div>' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Fan-in and fan-out</div>' +
+                                                            '<div class="result-item-metrics-item-value">Fan in: ' + resp.metrics["Fan-in and fan-out"]["in"] + '; Fan out: ' + resp.metrics["Fan-in and fan-out"]["out"] + ';</div>' +
+                                                        '</div>' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Lines of code</div>' +
+                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Lines of code"] + '</div>' +
+                                                        '</div>' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Maintainability index</div>' +
+                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Maintainability index"] + '</div>' +
+                                                        '</div>' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Nesting depth</div>' +
+                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Nesting depth"] + '</div>' +
+                                                        '</div>' +
+                                                        '<div class="result-item-metrics-item">' +
+                                                            '<div class="result-item-metrics-item-name">Number of methods</div>' +
+                                                            '<div class="result-item-metrics-item-value">' + resp.metrics["Number of methods"] + '</div>' +
+                                                        '</div>' +
+                                                   '</div>';
+                        resultDiv.append(resultDivChild);
+                    }
+            } else {
+                alert('An error occurred!');
+            }
+        };
+        xhr.send(formData);
+    }
+
     </script>
 </body>
 </html>
