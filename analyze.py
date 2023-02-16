@@ -111,10 +111,6 @@ def calculate_metric(filename):
     # calculate Maintainability Index
     mi = calculate_mi(filename)
     
-    # calculate Fan-in and Fan-out
-    fan_in = calculate_fan_in_out(filename).fan_in
-    fan_out = calculate_fan_in_out(filename).fan_out
-    
     # calculate Nesting Depth
     nd = calculate_nesting_depth(filename)
     
