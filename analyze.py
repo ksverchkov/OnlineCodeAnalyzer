@@ -50,6 +50,7 @@ def calculate_fan_in_out(filepath):
     fan_out = 0
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
+            print(node)
             fan_in += len(node.calls)
             fan_out += len([x for x in ast.walk(node) if isinstance(x, ast.Call)])
     return {"fan_in": fan_in, "fan_out": fan_out}
