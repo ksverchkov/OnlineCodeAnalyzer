@@ -1,5 +1,6 @@
 import os
 import shutil
+from analyze import *
 from flask import Flask, jsonify, request, render_template
  
 app = Flask(__name__)
