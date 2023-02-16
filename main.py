@@ -14,20 +14,6 @@ UPLOAD_DIRECTORY = "uploads"
  
 # Define the directory to store the temporary extracted code files
 EXTRACT_DIRECTORY = "extracts"
-
- 
-def calculate_metrics(directory):
-    """Calculates various metrics for the code files in the given directory"""
- 
-    # Implement the code analysis logic here using the METRICS list
-    # Use the directory path to access the code files and analyze them
-    # Return the metrics as a dictionary
- 
-    metrics = {"Cyclomatic complexity": 0, "Maintainability index": 0,
-               "Fan-in and fan-out": 0, "Nesting depth": 0,
-               "Number of methods": 0, "Lines of code": 0}
- 
-    return metrics
  
  
 def extract_zip(file_path, extract_directory):
