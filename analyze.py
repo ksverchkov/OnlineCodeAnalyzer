@@ -1,6 +1,7 @@
 import os, fnmatch
 import math
 import ast
+import re
 
 
 def find_files(directory, pattern):
