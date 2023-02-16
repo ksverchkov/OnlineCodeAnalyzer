@@ -15,9 +15,11 @@ def calculate_metrics(directory):
         print(pfile)
         try:
             currentMetric = {"filename" : pfile, "metrics" : calculate_metric(pfile)}
+            allMetrics.append(currentMetric)
             pass
         except Exception as e:
             currentMetric = {"filename" : pfile, "metrics" : {}, "error": str(e)}
+            allMetrics.append(currentMetric)
             pass
     return allMetrics
 
