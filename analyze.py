@@ -1,4 +1,4 @@
-import radon.metrics as radon
+import radon.complexity as radon
 import os, fnmatch
 
 
