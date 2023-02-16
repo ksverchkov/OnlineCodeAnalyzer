@@ -14,14 +14,14 @@ def calculate_metrics(directory):
     for pfile in find_files(directory, '*.py'):
         print(pfile)
         try:
-            currentMetric = {"filename" : pfile, "metrics" : calculate_metrics(pfile)}
+            currentMetric = {"filename" : pfile, "metrics" : calculate_metric(pfile)}
             pass
         except Exception as e:
             currentMetric = {"filename" : pfile, "metrics" : {}, "error": str(e)}
             pass
     return allMetrics
 
-def calculate_metrics(filename):
+def calculate_metric(filename):
         # calculate LOC
     with open(filename, 'r') as f:
         loc = len(f.readlines())
