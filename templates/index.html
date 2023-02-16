@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Analysis</title>
+</head>
+<body>
+    <h1>Code Analysis</h1>
+    <form>
+        <label for="file">Select a code package to analyze:</label><br>
+        <input type="file" id="file" name="file"><br>
+        <button type="button" onclick="analyze()">Analyze</button>
+    </form>
+ 
+    <div id="result"></div>
+ 
+    <script>
+        function analyze() {
+            let fileInput = document.getElementById('file');
+            let file = fileInput.files[0];
+ 
+            let formData = new FormData();
+            formData.append('file', file);
+ 
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:5000/analyze');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    let response = JSON.parse(xhr.responseText);
+                    let resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = '<h2>Code Metrics:</h2>' +
+                                          '<ul>' +
+                                          '<li>Lines of Code: ' + response.loc + '</li>' +
+                                          '<li>Cyclomatic Complexity: ' + response.cc + '</li>' +
+                                          '<li>Fan-in: ' + response.fan_in + '</li>' +
+                                          '<li>Fan-out: ' + response.fan_out + '</li>' +
+                                          '<li>Nesting Depth: ' + response.nesting_depth + '</li>' +
+                                          '<li>Number of Methods: ' + response.num_methods + '</li>' +
+                                          '</ul>';
+                } else {
+                    alert('An error occurred!');
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
