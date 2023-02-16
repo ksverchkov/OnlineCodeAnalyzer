@@ -40,7 +40,27 @@ def calculate_mi(filepath):
     mi = 171 - 5.2 * math.log(volume) - 0.23 * cc - 16.2 * math.log(loc)
     return mi
 
-"""def calculate_fan_in_out(filepath):
+def get_fan_in(function_name):
+    fan_in = set()
+    for root, dirs, files in os.walk("extracts"):
+        for filename in files:
+            if filename.endswith(".py"):
+                with open(os.path.join(root, filename)) as f:
+                    for line in f:
+                        if function_name in line and "def" in line:
+                            fan_in.add(line.split("def ")[1].split("(")[0])
+    return fan_in
+ 
+def get_fan_out(current_function_name, source_code):
+    fan_out = set()
+    for line in source_code.split("\n"):
+        if current_function_name in line and "(" in line:
+            called_function_name = line.split("(")[0].strip().split(" ")[-1]
+            if called_function_name != current_function_name:
+                fan_out.add(called_function_name)
+    return fan_out
+
+def calculate_fan_in_out(filepath):
     with open(filepath, 'r') as f:
         code = f.read()
     tree = ast.parse(code)
@@ -48,13 +68,9 @@ def calculate_mi(filepath):
     fan_out = 0
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
-            print(list_func_calls(node))
-            for property, value in vars(node).items():
-                print(property, ":", value)
-            fan_in += len(node.calls)
-            fan_out += len([x for x in ast.walk(node) if isinstance(x, ast.Call)])
+            fan_in += len(get_fan_in(node.name))
+            fan_out += len(get_fan_out(node.name, code))
     return {"fan_in": fan_in, "fan_out": fan_out}
-"""
 
 def calculate_nesting_depth(filepath):
     with open(filepath, 'r') as f:
@@ -91,11 +107,11 @@ def calculate_metrics(directory):
     for pfile in find_files(directory, '*.py'):
         print(pfile)
         try:
-            currentMetric = {"filename" : pfile, "metrics" : calculate_metric(pfile)}
+            currentMetric = {"filename" : pfile.replace('extracts/', '', 1), "metrics" : calculate_metric(pfile)}
             allMetrics.append(currentMetric)
             pass
         except Exception as e:
-            currentMetric = {"filename" : pfile, "metrics" : {}, "error": str(e)}
+            currentMetric = {"filename" : pfile.replace('extracts/', '', 1), "metrics" : {}, "error": str(e)}
             allMetrics.append(currentMetric)
             pass
     return allMetrics
@@ -111,6 +127,10 @@ def calculate_metric(filename):
     # calculate Maintainability Index
     mi = calculate_mi(filename)
     
+    # calculate Fan-in and Fan-out
+    fan_in = calculate_fan_in_out(filename).fan_in
+    fan_out = calculate_fan_in_out(filename).fan_out
+    
     # calculate Nesting Depth
     nd = calculate_nesting_depth(filename)
     
@@ -120,6 +140,10 @@ def calculate_metric(filename):
     metrics = {
         "Cyclomatic complexity": cc,
         "Maintainability index": mi,
+        "Fan-in and fan-out": {
+            "in" : fan_in,
+            "out" : fan_out
+        },
         "Nesting depth": nd,
         "Number of methods": nom,
         "Lines of code": loc
