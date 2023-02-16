@@ -70,7 +70,7 @@ def calculate_fan_in_out(filepath):
         if isinstance(node, ast.FunctionDef):
             fan_in += len(get_fan_in(node.name))
             fan_out += len(get_fan_out(node.name, code))
-    return {"fan_in": fan_in, "fan_out": fan_out}
+    return (fan_in, fan_out)
 
 def calculate_nesting_depth(filepath):
     with open(filepath, 'r') as f:
@@ -128,8 +128,7 @@ def calculate_metric(filename):
     mi = calculate_mi(filename)
     
     # calculate Fan-in and Fan-out
-    fan_in = calculate_fan_in_out(filename).fan_in
-    fan_out = calculate_fan_in_out(filename).fan_out
+    fan_in, fan_out = calculate_fan_in_out(filename)
     
     # calculate Nesting Depth
     nd = calculate_nesting_depth(filename)
