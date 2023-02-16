@@ -11,8 +11,6 @@ def find_files(directory, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
 
-# Calculating metrics functions
-
 def calculate_cc(filepath):
     with open(filepath, 'r') as f:
         code = f.read()
