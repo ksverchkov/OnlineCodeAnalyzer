@@ -1,14 +1,18 @@
 import radon.metrics as radon
-import fnmatch
-import os
+import os, fnmatch
+
+
+def find_files(directory, pattern):
+    for root, dirs, files in os.walk(directory):
+        for basename in files:
+            if fnmatch.fnmatch(basename, pattern):
+                filename = os.path.join(root, basename)
+                yield filename
 
 def calculate_metrics(directory):
     allMetrics = []
-    pythonfiles = []
-    for root, dirnames, filenames in os.walk(directory):
-        for filename in fnmatch.filter(filenames, '*.py'):
-            pythonfiles.append(os.path.join(root, filename))
-    for pfile in pythonfiles:
+    for pfile in find_files(directory, '*.py'):
+        print(pfile)
         try:
             currentMetric = {"filename" : pfile, "metrics" : calculate_metrics(pfile)}
             pass
