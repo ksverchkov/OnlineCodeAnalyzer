@@ -25,4 +25,8 @@ OnlineCodeAnalyzer is a web application for analyzing Python code. It provides a
 ## License
  
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Install using HELM (experimental)
+
+[Helm](helm/README.md)
  
