@@ -1,7 +1,7 @@
 import os
 import shutil
 from analyze import *
-from flask import Flask, jsonify, request, render_template, send_from_directory
+from flask import Flask, jsonify, request, render_template, send_from_directory, Response
  
 app = Flask(__name__)
  
