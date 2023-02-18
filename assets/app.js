@@ -9,9 +9,9 @@ function makeid(length) {
 }
 
 function analyze() {
-
     let fileInput = document.getElementById('file');
     let file = fileInput.files[0];
+    let resultDiv = document.querySelector('.result_res');
     resultDiv.innerHTML = '<img src="/assets/loading.svg"/>';
     let formData = new FormData();
     formData.append('file', file);
