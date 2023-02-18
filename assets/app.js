@@ -148,4 +148,9 @@ const nextUpload = function(){
     documentResultRES.classList.add('result_res');
     documentResult.append(documentResultRES);
     document.body.append(documentResult);
+    const input = document.querySelector("input")
+    input.onchange = (e) => {
+        const [file] = e.target.files
+        document.querySelector('label').innerHTML = '<img src="/assets/archive-icon.svg" alt="Archive Icon"> '+(file.name);
+    }
 }

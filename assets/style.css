@@ -161,14 +161,15 @@ label > img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
 }
 
 .result-item-metrics-item {
     display: flex;
     padding: 10px 20px;
-    margin: 10px 20px;
     border: 1px solid #5FBFF9;
     border-radius: 5px;
+    margin: 5px 0px;
 }
 
 .result-item-metrics-item-value {
