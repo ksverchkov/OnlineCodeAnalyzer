@@ -101,5 +101,14 @@ xhr.send(formData);
 }
 
 const nextUpload = function(){
-    
+    document.querySelector('.button-container').remove();
+    let blocks = document.querySelector('.blocks');
+    blocks.classList.add('selection-form');
+    blocks.classList.remove('blocks');
+    blocks.innerHTML = `<form>
+        <label for="file"><img src="/assets/archive-icon.svg" alt="Archive Icon"> Select a file</label>
+        <input type="file" id="file" name="file">
+        <button type="button" onclick="analyze()">Continue</button>
+    </form>`;
+    document.querySelector('.h1').innerHTML='Select your project archive';
 }
