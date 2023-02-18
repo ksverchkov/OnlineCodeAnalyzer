@@ -141,6 +141,10 @@ label > img {
     height: calc(100% - 100px);
     overflow: auto;
     max-width: calc(100%);
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+    grid-gap: 10px;
 }
 
 .h1.centered.max-width {
@@ -154,6 +158,7 @@ label > img {
     flex-direction: column;
     border: 1px solid #5FBFF9;
     border-radius: 5px;
+    height: fit-content;
 }
 
 .result-item-name {
@@ -215,4 +220,9 @@ stat.status {
 
 stat.status::after {
     content: "%";
+}
+
+.result-item-metrics {
+    padding: 10px 20px;
+    border-top: 1px solid #5FBFF9;
 }
