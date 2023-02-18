@@ -9,12 +9,13 @@ function makeid(length) {
 }
 
 function analyze() {
+
     let fileInput = document.getElementById('file');
     let file = fileInput.files[0];
-
+    resultDiv.innerHTML = '<img src="/assets/loading.svg"/>';
     let formData = new FormData();
     formData.append('file', file);
-
+    window.scrollTo(0, document.body.scrollHeight);
     let xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://code-analyzer.carente.eu.org/analyze?timestamp='+(+new Date).toString(36));
     xhr.onload = function() {
