@@ -154,3 +154,15 @@ const nextUpload = function(){
         document.querySelector('label').innerHTML = '<img src="/assets/archive-icon.svg" alt="Archive Icon"> '+(file.name);
     }
 }
+
+const openStat = function(id){
+    let sto = (document.querySelector('.m_'+id));
+    let image=document.querySelector('.icon_'+id);
+    if (sto.style[0]){
+        sto.style='';
+        image.src='assets/icon-triangle-open.svg';
+    }else{
+        sto.style='display: block;';
+        image.src='assets/icon-triangle-opened.svg';
+    }
+}

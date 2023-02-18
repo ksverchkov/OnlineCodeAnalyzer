@@ -223,6 +223,7 @@ stat.status::after {
 }
 
 .result-item-metrics {
+    display: none;
     padding: 10px 20px;
     border-top: 1px solid #5FBFF9;
 }
