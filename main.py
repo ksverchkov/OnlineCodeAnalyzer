@@ -1,7 +1,7 @@
 import os
 import shutil
 from analyze import *
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, send_from_directory
  
 app = Flask(__name__)
  
@@ -63,6 +63,18 @@ def analyze():
 def index():
     title = 'Code analyzing platform'
     return render_template('index.html', title=title)
+
+@app.route("/assets/<file_name>")  # type: ignore
+def serve_file(file_name: str) -> Response:
+    """Set up a dynamic routes for directory items at /files/.
+
+    Args:
+        file_name (str): regular file.
+
+    Returns:
+        Response: regular file.
+    """
+    return send_from_directory('assets/', file_name)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=False)
