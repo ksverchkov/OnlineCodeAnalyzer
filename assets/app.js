@@ -147,5 +147,5 @@ const nextUpload = function(){
     let documentResultRES = document.createElement('div');
     documentResultRES.classList.add('result_res');
     documentResult.append(documentResultRES);
-    document.querySelector('.main').append(documentResult);
+    document.body.append(documentResult);
 }
