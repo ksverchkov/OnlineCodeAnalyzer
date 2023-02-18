@@ -20,7 +20,7 @@ function analyze() {
     xhr.onload = function() {
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
-            let resultDiv = document.getElementById('result_res');
+            let resultDiv = document.querySelector('.result_res');
             resultDiv.innerHTML = '';
             for (let r in response){
                 let resp = response[r];
