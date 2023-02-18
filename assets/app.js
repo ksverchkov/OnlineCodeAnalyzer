@@ -12,7 +12,7 @@ function analyze() {
     let fileInput = document.getElementById('file');
     let file = fileInput.files[0];
     let resultDiv = document.querySelector('.result_res');
-    resultDiv.innerHTML = '<img src="/assets/loading.svg"/>';
+    resultDiv.innerHTML = '<img src="/assets/loading-transparent.svg"/>';
     let formData = new FormData();
     formData.append('file', file);
     window.scrollTo(0, document.body.scrollHeight);
