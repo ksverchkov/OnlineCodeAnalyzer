@@ -90,7 +90,7 @@ function analyze() {
                     }
                     percent = (Math.round(good / all * 100));
                     resultDivChild.innerHTML = '<div class="result-item-name">' + resp.filename + '<div class="controls"><stat class="status">' + String(percent) + '</stat> <div class="open" onclick="openStat(' + "'" + documentID + "'" + '"><img src="/assets/icon-triangle-open.svg" class="icon_' + documentID + '" alt="Open triangle icon"/></div></div></div>' +
-                                            '<div class="result-item-metrics ">' +
+                                            '<div class="result-item-metrics m_' + documentID + '">' +
                                                     '<div class="result-item-metrics-item">' +
                                                         '<div class="result-item-metrics-item-name">Cyclomatic complexity: ' + resp.metrics["Cyclomatic complexity"] + '</div>' +
                                                         '<div class="result-item-metrics-item-value"><constat class="' + metrics_results["Cyclomatic complexity"] + '">' + metrics_results["Cyclomatic complexity"] + '</constat></div>' +
