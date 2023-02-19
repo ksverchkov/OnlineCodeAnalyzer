@@ -9,6 +9,7 @@ COPY . /app/
 COPY requirements.txt /app/
 
 RUN pip install -r requirements.txt
+RUN pip install gunicorn
 
 EXPOSE 5000
 
