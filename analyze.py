@@ -105,7 +105,6 @@ def calculate_number_of_methods(filepath):
 def calculate_metrics(directory):
     allMetrics = []
     for pfile in find_files(directory, '*.py'):
-        print(pfile)
         try:
             currentMetric = {"filename" : pfile.replace('extracts/', '', 1), "metrics" : calculate_metric(pfile)}
             allMetrics.append(currentMetric)
