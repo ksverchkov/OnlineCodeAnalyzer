@@ -30,3 +30,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 [Helm](helm/README.md)
  
+## Screenshots
+
+![image](https://github.com/ksverchkov/OnlineCodeAnalyzer/assets/107706691/a41cb110-0c8c-48c7-9d38-867a7679dcf4)
+![image](https://github.com/ksverchkov/OnlineCodeAnalyzer/assets/107706691/796c8ff0-5e1d-44f8-83ae-3295272f3411)
+![image](https://github.com/ksverchkov/OnlineCodeAnalyzer/assets/107706691/faa93f32-876c-49a4-a392-619ea587b609)
