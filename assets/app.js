@@ -18,7 +18,7 @@ function analyze() {
         formData.append('file', file);
         window.scrollTo(0, document.body.scrollHeight);
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://code-analyzer.carente.eu.org/analyze?timestamp='+(+new Date).toString(36));
+        xhr.open('POST', '/analyze?timestamp='+(+new Date).toString(36));
         xhr.onload = function() {
             if (xhr.status === 200) {
                 let response = JSON.parse(xhr.responseText);
